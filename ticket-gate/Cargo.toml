@@ -1,0 +1,13 @@
+[package]
+name = "pod-ticket-gate"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.75"
+hex = "0.4.3"
+scale = { version = "3.6.5", package = "parity-scale-codec" }
+subxt = "0.32"
+types = { package = "phala-types", version = "0.1.0", path = "../phala-types" }
+ticket-house = { package = "pod-ticket-house", path = "../ticket-house", features = ["ink-as-dependency", "topic"] }
+clap = { version = "4.4.7", features = ["derive"] }

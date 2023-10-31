@@ -1,0 +1,14 @@
+[package]
+name = "phala-types"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+frame-system = { version = "24.0.0", no-default-features = true }
+scale = { version = "3.6.5", package = "parity-scale-codec", no-default-features = true }
+sp-core = { version = "24.0.0", no-default-features = true }
+
+
+[features]
+default = ["std"]
+std = ["sp-core/std", "scale/std", "frame-system/std"]

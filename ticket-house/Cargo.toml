@@ -1,0 +1,28 @@
+[package]
+name = "pod-ticket-house"
+version = "0.1.0"
+authors = ["[your_name] <[your_email]>"]
+edition = "2021"
+description = "This is a demo describes how to write a pink driver contract"
+
+[dependencies]
+ink = { version = "4", default-features = false }
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive"] }
+scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
+
+pink = { package = "pink-extension", version = "0.4", default-features = false }
+this-crate = "0.1"
+
+[lib]
+path = "lib.rs"
+
+[features]
+default = ["std"]
+std = [
+    "ink/std",
+    "scale/std",
+    "scale-info/std",
+    "pink/std",
+]
+ink-as-dependency = []
+topic = ["pink/runtime_utils"]
