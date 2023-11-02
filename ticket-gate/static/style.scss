@@ -1,0 +1,175 @@
+/* Reset some default browser styles */
+html, body, h1, h2, form {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+/* Limit the page width */
+.container {
+  max-width: 800px; /* Adjust the maximum width to your preference */
+  margin: 0 auto;  /* Center the container horizontally */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  font-size: 36px;
+  margin-top: 20px;
+  color: #333;
+}
+
+h2 {
+  font-size: 24px;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Style the login form */
+form#login {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  color: #333;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Style the balance and pods sections */
+#balance, #pods {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the "Add Pod" form */
+form#add-pod {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+}
+
+/* Style the buttons */
+button[type="button"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+button[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+/* Add a bit of spacing to div elements inside the pods section */
+#pods div {
+  margin: 10px 0;
+}
+
+/* Style the individual Pod list items */
+#pods div {
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#pods div span {
+  flex: 1;
+}
+
+#pods div button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+#pods div button:hover {
+  background-color: #0056b3;
+}
+
+/* Style the "Add Pod" form to be in a single line */
+form#add-pod {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  margin: 20px;
+}
+
+/* Style the labels */
+form#add-pod label {
+  flex: 1;
+  margin-right: 10px;
+  text-align: right;
+  color: #333;
+}
+
+/* Style the text inputs */
+form#add-pod input[type="text"] {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style the "Add" button */
+form#add-pod button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+

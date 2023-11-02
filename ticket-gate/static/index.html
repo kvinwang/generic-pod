@@ -1,0 +1,151 @@
+<html>
+
+<head>
+    <title>Phat Pods Console</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Phat Pods Console</h1>
+        <script>
+            // get username from cookie `user` and write it to the page
+            function getCookie(name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length == 2) return parts.pop().split(";").shift();
+            }
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+            function logout() {
+                document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.reload();
+            }
+            (function () {
+                var user = getCookie("user");
+                if (user) {
+                    document.write(`<h2>Hello ${user}!</h2><button type="button" onclick="logout()">Logout</button>`);
+                } else {
+                    document.write(`
+                    <form id="login">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" />
+                        <label for="pwd">Password</label>
+                        <input type="text" name="pwd" id="pwd" />
+                        <button type="submit">Login</button>
+                    </form>
+                `);
+                    const login = document.getElementById("login");
+                    login.addEventListener("submit", async (e) => {
+                        e.preventDefault();
+                        const formData = new FormData(login);
+                        const username = formData.get("username");
+                        setCookie("user", username, 1);
+                        window.location.reload();
+                    });
+                }
+            })();
+        </script>
+        <h2>Balance</h2>
+        <div id="balance"></div>
+        <button type="button" onclick="recharge()">Debug recharge</button>
+        <h2>Pods</h2>
+        <div id="pods"></div>
+        <h2>Add Pod</h2>
+        <form id="add-pod">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" />
+            <label for="image">Image</label>
+            <input type="text" name="image" id="image" />
+            <label for="cmd">Command</label>
+            <input type="text" name="cmd" id="cmd" />
+            <button type="submit">Add</button>
+        </form>
+        <script>
+            const balance = document.getElementById("balance");
+            const pods = document.getElementById("pods");
+            const addPod = document.getElementById("add-pod");
+            const user = document.cookie.split("=")[1];
+            const fetchBalance = async () => {
+                const response = await fetch("/balance");
+                const json = await response.json();
+                balance.innerText = json.balance;
+            };
+            const fetchPods = async () => {
+                const response = await fetch("/pods/list");
+                const json = await response.json();
+                pods.innerHTML = json.pods.map(pod => {
+                    return `
+                            <div>
+                                <span>${pod.container_name}</span>
+                                <span>${pod.state}</span>
+                                <button onclick="startPod(${pod.id})">Start</button>
+                                <button onclick="stopPod(${pod.id})">Stop</button>
+                            </div>
+                        `;
+                }).join("");
+            };
+            const addPodHandler = async (e) => {
+                e.preventDefault();
+                const formData = new FormData(addPod);
+                const image = formData.get("image");
+                const cmd = formData.get("cmd");
+                const name = formData.get("name");
+                const response = await fetch(`/pods/add?image=${image}&cmd=${cmd}&name=${name}`, {
+                    method: "POST",
+                });
+                const json = await response.json();
+                if (json.error) {
+                    alert(json.error);
+                } else {
+                    window.location.reload();
+                }
+            };
+            const startPod = async (id) => {
+                const response = await fetch(`/pods/start?id=${id}`, {
+                    method: "POST",
+                });
+                const json = await response.json();
+                if (json.error) {
+                    alert(json.error);
+                } else {
+                    window.location.reload();
+                }
+            };
+            const stopPod = async (id) => {
+                const response = await fetch(`/pods/stop?id=${id}`, {
+                    method: "POST",
+                });
+                const json = await response.json();
+                if (json.error) {
+                    alert(json.error);
+                } else {
+                    window.location.reload();
+                }
+            };
+            const recharge = async () => {
+                const response = await fetch(`/recharge?amount=100`, {
+                    method: "POST",
+                });
+                const json = await response.json();
+                if (json.error) {
+                    alert(json.error);
+                } else {
+                    window.location.reload();
+                }
+            };
+            fetchBalance();
+            fetchPods();
+            addPod.addEventListener("submit", addPodHandler);
+        </script>
+    </div>
+</body>
+
+</html>
