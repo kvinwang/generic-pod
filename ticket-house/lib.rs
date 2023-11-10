@@ -7,8 +7,8 @@ pub use ticket_office::{Extracted, Recharged, TicketOffice};
 
 #[pink::contract(env = PinkEnvironment)]
 mod ticket_office {
-    use pink::PinkEnvironment;
     use alloc::string::String;
+    use pink::PinkEnvironment;
 
     type Result<T> = core::result::Result<T, Error>;
 
@@ -85,6 +85,17 @@ mod ticket_office {
                 return Ok(());
             }
             pink::info!("Recharged {account:?} with {amount}.");
+            self.env().emit_event(Recharged { account, amount });
+            Ok(())
+        }
+
+        #[ink(message)]
+        pub fn force_recharge(&mut self, account: String, amount: Balance) -> Result<()> {
+            self.ensure_owner()?;
+            if amount == 0 {
+                return Ok(());
+            }
+            pink::info!("Force recharged {account:?} with {amount}.");
             self.env().emit_event(Recharged { account, amount });
             Ok(())
         }
